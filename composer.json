@@ -1,0 +1,29 @@
+{
+    "name": "pdmfc/saml2-idp",
+    "description": "Make your Laravel application an Identification Provider using SAML 2.0.",
+    "keywords": ["laravel", "saml", "saml 2.0", "auth", "acl", "sso", "idp"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": "^6.0",
+        "illuminate/routing": "^6.0",
+        "lightsaml/lightsaml": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "PDMFC\\Saml2Idp\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PDMFC\\Saml2Idp\\SamlIdpServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
