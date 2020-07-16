@@ -1,6 +1,4 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/codegreencreative/laravel-samlidp.svg?style=flat-square)](https://packagist.org/packages/codegreencreative/laravel-samlidp)
-[![Total Downloads](https://img.shields.io/packagist/dt/codegreencreative/laravel-samlidp.svg?style=flat-square)](https://packagist.org/packages/codegreencreative/laravel-samlidp)
-
+Fork of laravel SAMLIDP PHP library
 
 ## Installation
 
@@ -178,4 +176,3 @@ class SamlAssertionAttributes
 
 ```
 
-Fork of laravel SAMLIDP PHP library
