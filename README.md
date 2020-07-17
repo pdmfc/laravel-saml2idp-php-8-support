@@ -136,7 +136,7 @@ This is because Laravel migrations, by default, only supply email and name field
 
 To add additional Claim Types, you can subscribe to the Assertion event:
 
-`CodeGreenCreative\SamlIdp\Events\Assertion`
+`PDMFC\Saml2Idp\Events\Assertion`
 
 Subscribing to the Event:
 
@@ -147,7 +147,7 @@ protected $listen = [
     'App\Events\Event' => [
         'App\Listeners\EventListener',
     ],
-    'CodeGreenCreative\SamlIdp\Events\Assertion' => [
+    'PDMFC\Saml2Idp\Events\Assertion' => [
         'App\Listeners\SamlAssertionAttributes'
     ]
 ];
@@ -162,7 +162,7 @@ namespace App\Listeners;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Model\Assertion\Attribute;
-use CodeGreenCreative\SamlIdp\Events\Assertion;
+use PDMFC\Saml2Idp\Events\Assertion;
 
 class SamlAssertionAttributes
 {
