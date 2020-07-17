@@ -1,11 +1,19 @@
 Fork of laravel SAMLIDP PHP library
 
 ## Installation
+Add this on composer repositories section:
+```json
+{
+    "type": "vcs",
+    "url": "https://gitlab.pdmfc.com/pdmfc/laravel-saml2idp.git"
+}
+```
+
 
 Require this package with composer:
 
 ```shell
-composer require pdmffc/laravel-saml2idp:*
+composer require pdmfc/laravel-saml2idp:*
 ```
 
 # Configuration
