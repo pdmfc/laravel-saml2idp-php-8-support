@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use PDMFC\Saml2Idp\Application;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class VerifyAuthorizedServiceProviders extends Middleware
@@ -50,7 +51,7 @@ class VerifyAuthorizedServiceProviders extends Middleware
             $authNRequest = Helper::deserializeAuthNRequest(request('SAMLRequest'));
 
             $entityId = base64_encode($authNRequest->getAssertionConsumerServiceURL());
-            $serviceProvider = ServiceProvider::findByEntityId($entityId);
+            $serviceProvider = Application::findByEntityId($entityId);
 
             if (!$serviceProvider) {
                 $authRequest=[
@@ -61,7 +62,7 @@ class VerifyAuthorizedServiceProviders extends Middleware
                 ];
 
 
-				app(EventAuditable::class)->audit(AuditEventType::SSO_APPLICATION_NOT_AUTHORIZED,array_merge($authRequest,$request->all()),['error_message' => 'Application not authorized']);
+				//app(EventAuditable::class)->audit(AuditEventType::SSO_APPLICATION_NOT_AUTHORIZED,array_merge($authRequest,$request->all()),['error_message' => 'Application not authorized']);
                 throw new AccessDeniedHttpException();
             }
         }
