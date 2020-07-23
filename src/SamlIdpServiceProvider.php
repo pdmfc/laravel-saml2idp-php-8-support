@@ -131,7 +131,7 @@ class SamlIdpServiceProvider extends ServiceProvider
                 $this->loadRoutesFrom(__DIR__ . '/../routes/saml.php');
             });
 
-        Route::middleware(['web'])
+        Route::middleware(config('samlidp.middleware'))
             ->prefix('sso')
             ->namespace('\App\Http\Controllers')
             ->group(__DIR__.'/../routes/web.php');
