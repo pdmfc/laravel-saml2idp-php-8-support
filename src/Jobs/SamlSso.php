@@ -161,7 +161,8 @@ class SamlSso implements SamlContract
 
         $queryParams = $this->getQueryParams();
         if (!empty($queryParams)) {
-            $destination = Str::finish(url($destination), '?') . Arr::query($queryParams);
+            $destinationHasParameters = Str::contains(url($destination) , '?');
+            $destination = Str::finish(url($destination), $destinationHasParameters ? '&' : '?') . Arr::query($queryParams);
         }
 
         $this->destination = $destination;
@@ -180,7 +181,8 @@ class SamlSso implements SamlContract
             ];
         }
 
-        return $queryParams;
+        return array_merge(request()->query(),$queryParams );
+
     }
 
     public function setSpCertificate()

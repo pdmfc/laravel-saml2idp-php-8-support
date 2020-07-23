@@ -128,17 +128,18 @@ class SamlIdpServiceProvider extends ServiceProvider
             ->prefix('saml')
             ->namespace('PDMFC\Saml2Idp\Http\Controllers')
             ->middleware('web')->group(function () {
-                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/saml.php');
             });
-
-        if ($this->app->routesAreCached()) {
-            return;
-        }
 
         Route::middleware(['web'])
             ->prefix('sso')
             ->namespace('\App\Http\Controllers')
             ->group(__DIR__.'/../routes/web.php');
+
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
     }
 
     /**
