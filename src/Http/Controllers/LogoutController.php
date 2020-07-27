@@ -6,7 +6,7 @@ use App\AuditEventType;
 use App\Http\Controllers\Controller;
 use App\ServiceProvider;
 use App\Support\EventAuditable;
-use CodeGreenCreative\SamlIdp\Jobs\SamlSlo;
+use PDMFC\Saml2Idp\Jobs\SamlSlo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
