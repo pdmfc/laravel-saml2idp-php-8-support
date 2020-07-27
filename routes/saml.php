@@ -14,3 +14,5 @@ Route::get('metadata', function(\Illuminate\Http\Request $request){
     $response->header('Content-Transfer-Encoding', 'binary');
     return $response;
 })->name('sso.metadata');
+
+Route::get('logout','LogoutController@index' );

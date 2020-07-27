@@ -23,7 +23,8 @@ class SamlLogin
 	 */
 	public function handle(): void
 	{
-		if (request()->filled(self::SAMLREQUEST_KEY) && !request()->is('sso/logout') && !request()->is('saml/logout') && !request()->is('api/v1/sso/logout')) {
+		if (request()->filled(self::SAMLREQUEST_KEY) && !request()->is('sso/logout')
+            && !request()->is('saml/logout') ) {
 //			if ($this->twoFactorIsEnable()) {
 //				abort(redirect('verify'), 302);
 //			}
