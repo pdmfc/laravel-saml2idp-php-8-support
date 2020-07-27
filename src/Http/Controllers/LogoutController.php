@@ -40,8 +40,8 @@ class LogoutController extends Controller
         $serviceProviders = \PDMFC\Saml2Idp\Application::get()->keyBy('entity_id')
             ->map(static function($sp){
                 return [
-                    'destination'=>$sp->destination_endpoint,
-                    'logout'=>$sp->logout_endpoint,
+                    'destination'=>$sp->acs_callback,
+                    'logout'=>$sp->sls_callback,
                     'certificate'=>$sp->certificate,
                     'query_params' =>false
                 ];
