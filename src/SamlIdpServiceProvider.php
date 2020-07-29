@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 class SamlIdpServiceProvider extends ServiceProvider
 {
 
-    use EventMap;
+    protected $events = [];
 
     /**
      * Bootstrap the application events.
@@ -110,6 +110,7 @@ class SamlIdpServiceProvider extends ServiceProvider
     private function registerEvents()
     {
         $events = $this->app->make(Dispatcher::class);
+        $this->events = config('samlidp.saml_events');
         foreach ($this->events as $event => $listeners) {
             foreach ($listeners as $listener) {
                 $events->listen($event, $listener);

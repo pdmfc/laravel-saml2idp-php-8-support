@@ -35,11 +35,8 @@ return [
     'encrypt_assertion' => false,
     // Make sure messages are signed
     'messages_signed' => false,
-    /**
-     * All of the Laravel SAML IdP event / listener mappings.
-     *
-     * @var array
-     */
+
+    //All of the Laravel SAML IdP event / listener mappings.
     'saml_events' => [
         Assertion::class => [],
         'Illuminate\Auth\Events\Logout' => [
