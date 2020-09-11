@@ -63,10 +63,6 @@ class SamlSsoBD extends LaravelSamlIdpSamlSso
             $deserializationContext->getDocument()->loadXML(gzinflate(base64_decode(request('SAMLRequest'))));
 
         }catch (\ErrorException $e) {
-
-            //AUDIT Invalid Request LOG
-            //app(EventAuditable::class)->audit(AuditEventType::SSO_FAILED,[],['error_message' => $e->getMessage()]);
-
             return ['error'=>SSOConstants::SAML_INVALID_REQUEST];
         }
 

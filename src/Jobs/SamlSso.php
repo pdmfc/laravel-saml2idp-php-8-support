@@ -72,6 +72,7 @@ class SamlSso implements SamlContract
             ->setDestination($this->destination)
             ->setInResponseTo($this->authn_request->getId());
 
+        $nameIDField = config('samlidp.nameid_field');
         $assertion = new Assertion;
         $assertion
             ->setId(Helper::generateID())
@@ -80,7 +81,7 @@ class SamlSso implements SamlContract
             ->setSignature(new SignatureWriter($this->certificate, $this->private_key))
             ->setSubject(
                 (new Subject)
-                    ->setNameID((new NameID(auth()->user()->email, SamlConstants::NAME_ID_FORMAT_EMAIL)))
+                    ->setNameID((new NameID(auth()->user()->{$nameIDField}, SamlConstants::NAME_ID_FORMAT_UNSPECIFIED)))
                     ->addSubjectConfirmation(
                         (new SubjectConfirmation)
                             ->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER)
@@ -157,12 +158,28 @@ class SamlSso implements SamlContract
 
     private function setDestination()
     {
-        $destination = optional($this->getServiceProvider($this->authn_request))->acs_callback;
+        if(config('samlidp.use_database')) {
 
-        $queryParams = $this->getQueryParams();
-        if (!empty($queryParams)) {
-            $destinationHasParameters = Str::contains(url($destination) , '?');
-            $destination = Str::finish(url($destination), $destinationHasParameters ? '&' : '?') . Arr::query($queryParams);
+            $destination = optional($this->getServiceProvider($this->authn_request))->acs_callback;
+
+            $queryParams = $this->getQueryParams();
+            if (!empty($queryParams)) {
+                $destinationHasParameters = Str::contains(url($destination) , '?');
+                $destination = Str::finish(url($destination), $destinationHasParameters ? '&' : '?') . Arr::query($queryParams);
+            }
+        } else {
+
+            $destination = config(sprintf(
+                'samlidp.sp.%s.destination',
+                $this->getServiceProvider($this->authn_request)
+            ));
+
+//            $queryParams = $this->getQueryParams();
+//
+//            if (!empty($queryParams)) {
+//                $destination = Str::finish(url($destination), '?') . Arr::query($queryParams);
+//            }
+
         }
 
         $this->destination = $destination;

@@ -17,8 +17,10 @@ return [
      */
     // Outputs data to your laravel.log file for debugging
     'debug' => true,
-    // Define the email address field name in the users table
-    'email_field' => 'email',
+    // use database to authorize service providers
+    'use_database' => false,
+    // Defines the field name in the users table
+    'nameid_field' => 'username',
     // The URI to your login page
     'login_uri' => 'sso/login',
     // Define the middleware's to use with sso routes
@@ -51,6 +53,7 @@ return [
     ],
     // list of all service providers
     'sp' => [
+        //Example:
         // Base64 encoded ACS URL
         // 'aHR0cHM6Ly9teWZhY2Vib29rd29ya3BsYWNlLmZhY2Vib29rLmNvbS93b3JrL3NhbWwucGhw' => [
         //     // Your destination is the ACS URL of the Service Provider

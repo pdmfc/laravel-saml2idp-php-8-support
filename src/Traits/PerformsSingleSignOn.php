@@ -33,8 +33,8 @@ trait PerformsSingleSignOn
     /**
      * Send a SAML response/request
      *
-     * @param  string $binding_type
-     * @param  string $as
+     * @param string $binding_type
+     * @param string $as
      * @return string Target URL
      */
     protected function send($binding_type, $as = 'asResponse')
@@ -45,7 +45,7 @@ trait PerformsSingleSignOn
         $messageContext = new MessageContext();
         $messageContext->setMessage($this->response)->$as();
         $message = $messageContext->getMessage();
-        if (! empty(request()->filled('RelayState'))) {
+        if (!empty(request()->filled('RelayState'))) {
             $message->setRelayState(request('RelayState'));
         }
         $httpResponse = $binding->send($messageContext);
@@ -60,12 +60,16 @@ trait PerformsSingleSignOn
      */
     public function getServiceProvider($request)
     {
-        $serviceProvider = Application::findByEntityId(base64_encode($request->getAssertionConsumerServiceURL()));
-        if (!$serviceProvider) {
-            throw new AccessDeniedHttpException();
-        }
 
-        return $serviceProvider;
-        //return base64_encode($request->getAssertionConsumerServiceURL());
+        if (config('samlidp.use_database')) {
+            $serviceProvider = Application::findByEntityId(base64_encode($request->getAssertionConsumerServiceURL()));
+            if (!$serviceProvider) {
+                throw new AccessDeniedHttpException();
+            }
+
+            return $serviceProvider;
+        }
+        
+        return 'aHR0cHM6Ly9pYW0udHdpbGlvLmNvbS92MS9BY2NvdW50cy9BQ2E0ZWJkYjYwZjQ2ZjM0MWZhNGQ4MTQxM2FkMDcwNjg5L3NhbWwy';
     }
 }

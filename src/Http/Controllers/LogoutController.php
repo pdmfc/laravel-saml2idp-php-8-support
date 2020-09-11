@@ -37,15 +37,20 @@ class LogoutController extends Controller
 
         // Need to broadcast to our other SAML apps to log out!
         // Loop through our service providers and "touch" the logout URL's
-        $serviceProviders = \PDMFC\Saml2Idp\Application::get()->keyBy('entity_id')
-            ->map(static function($sp){
-                return [
-                    'destination'=>$sp->acs_callback,
-                    'logout'=>$sp->sls_callback,
-                    'certificate'=>$sp->certificate,
-                    'query_params' =>false
-                ];
-            })->toArray();
+        if(config('samlidp.use_database')) {
+
+            $serviceProviders = \PDMFC\Saml2Idp\Application::get()->keyBy('entity_id')
+                ->map(static function($sp){
+                    return [
+                        'destination'=>$sp->acs_callback,
+                        'logout'=>$sp->sls_callback,
+                        'certificate'=>$sp->certificate,
+                        'query_params' =>false
+                    ];
+                })->toArray();
+        }else {
+            $serviceProviders = config('samlidp.sp');
+        }
 
         foreach ($serviceProviders as $key => $sp) {
             // Check if the service provider supports SLO
