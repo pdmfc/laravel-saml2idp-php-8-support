@@ -60,16 +60,17 @@ trait PerformsSingleSignOn
      */
     public function getServiceProvider($request)
     {
+        $entityId = base64_encode($request->getAssertionConsumerServiceURL());
 
         if (config('samlidp.use_database')) {
-            $serviceProvider = Application::findByEntityId(base64_encode($request->getAssertionConsumerServiceURL()));
+            $serviceProvider = Application::findByEntityId($entityId);
             if (!$serviceProvider) {
                 throw new AccessDeniedHttpException();
             }
 
             return $serviceProvider;
         }
-        
-        return 'aHR0cHM6Ly9pYW0udHdpbGlvLmNvbS92MS9BY2NvdW50cy9BQ2E0ZWJkYjYwZjQ2ZjM0MWZhNGQ4MTQxM2FkMDcwNjg5L3NhbWwy';
+
+        return $entityId;
     }
 }
