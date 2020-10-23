@@ -39,7 +39,10 @@ class LogoutController extends Controller
         // Loop through our service providers and "touch" the logout URL's
         if(config('samlidp.use_database')) {
 
-            $serviceProviders = \PDMFC\Saml2Idp\Application::get()->keyBy('entity_id')
+            $serviceProviders = \PDMFC\Saml2Idp\Application::get()
+                ->where('active',true)
+                ->whereNotNull('sls_callback')
+                ->keyBy('entity_id')
                 ->map(static function($sp){
                     return [
                         'destination'=>$sp->acs_callback,
@@ -90,7 +93,7 @@ class LogoutController extends Controller
         // Look for return_to query in case of not relying on HTTP_REFERER
         $http_referer = $request->has('return_to') ? $request->get('return_to') : $request->server('HTTP_REFERER');
         $redirects = config('samlidp.sp_slo_redirects', []);
-        $slo_redirect = $request->has('SAMLRelay') ? $request->input('SAMLRelay') : config('samlidp.login_uri');
+        $slo_redirect = $request->has('RelayState') ? $request->input('RelayState') : config('samlidp.login_uri');
         foreach ($redirects as $referer => $redirectPath) {
             if (Str::startsWith($http_referer, $referer)) {
                 $slo_redirect = $redirectPath;
