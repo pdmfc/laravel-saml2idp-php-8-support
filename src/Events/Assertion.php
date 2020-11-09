@@ -16,6 +16,7 @@ class Assertion
      * @var object
      */
     public $attribute_statement;
+    public $application;
 
     /**
      * Create a new event instance.
@@ -25,8 +26,9 @@ class Assertion
      * @param  bool  $remember
      * @return void
      */
-    public function __construct(\LightSaml\Model\Assertion\AttributeStatement &$attribute_statement)
+    public function __construct(\LightSaml\Model\Assertion\AttributeStatement &$attribute_statement, $application)
     {
+        $this->application = $application;
         $this->attribute_statement = &$attribute_statement;
         $this->attribute_statement
             ->addAttribute(new Attribute(ClaimTypes::EMAIL_ADDRESS, auth()->user()->email))

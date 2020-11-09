@@ -2,6 +2,7 @@
 
 namespace PDMFC\Saml2Idp\Jobs;
 
+use LightSaml\Model\Assertion\Attribute;
 use PDMFC\Saml2Idp\Contracts\SamlContract;
 use PDMFC\Saml2Idp\Events\Assertion as AssertionEvent;
 use PDMFC\Saml2Idp\Traits\PerformsSingleSignOn;
@@ -81,7 +82,7 @@ class SamlSso implements SamlContract
             ->setSignature(new SignatureWriter($this->certificate, $this->private_key))
             ->setSubject(
                 (new Subject)
-                    ->setNameID((new NameID(auth()->user()->{$nameIDField}, config('samlidp.nameid_format') 
+                    ->setNameID((new NameID(auth()->user()->{$nameIDField}, config('samlidp.nameid_format')
                         ?? SamlConstants::NAME_ID_FORMAT_UNSPECIFIED)))
                     ->addSubjectConfirmation(
                         (new SubjectConfirmation)
@@ -113,7 +114,8 @@ class SamlSso implements SamlContract
             );
 
         $attribute_statement = new AttributeStatement;
-        event(new AssertionEvent($attribute_statement));
+
+        event(new AssertionEvent($attribute_statement, $this->getServiceProvider($this->authn_request)));
         // Add the attributes to the assertion
         $assertion->addItem($attribute_statement);
 
