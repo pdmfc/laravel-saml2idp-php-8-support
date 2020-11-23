@@ -1,5 +1,14 @@
 Fork of laravel SAMLIDP PHP library
 
+## FOR LARAVEL 7 
+
+use the 2.0.0 version
+
+## FOR LARABEL 6
+
+use the 1.0.0 version
+
+
 ## Installation
 Add this on composer repositories section:
 ```json
