@@ -4,7 +4,7 @@ Fork of laravel SAMLIDP PHP library
 
 use the 2.0.0 version
 
-## FOR LARABEL 6
+## FOR LARAVEL 6
 
 use the 1.0.0 version
 
