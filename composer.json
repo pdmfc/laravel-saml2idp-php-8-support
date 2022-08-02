@@ -1,5 +1,5 @@
 {
-    "name": "pdmfc/laravel-saml2idp",
+    "name": "freis/laravel-saml2idp",
     "description": "Make your Laravel application an Identification Provider using SAML 2.0.",
     "keywords": ["laravel", "saml", "saml 2.0", "auth", "acl", "sso", "idp"],
     "license": "MIT",
