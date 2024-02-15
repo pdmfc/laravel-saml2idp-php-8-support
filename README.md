@@ -14,7 +14,7 @@ Add this on composer repositories section:
 ```json
 {
     "type": "vcs",
-    "url": "https://gitlab.pdmfc.com/pdmfc/laravel-saml2idp.git"
+    "url": "https://github.com/pdmfc/laravel-saml2idp-php-8-support.git"
 }
 ```
 
@@ -22,7 +22,7 @@ Add this on composer repositories section:
 Require this package with composer:
 
 ```shell
-composer require pdmfc/laravel-saml2idp:*
+composer require pdmfc/laravel-saml2idp-php-8-support:*
 ```
 
 # Configuration

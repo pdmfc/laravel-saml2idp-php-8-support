@@ -1,7 +1,15 @@
 {
-    "name": "freis/laravel-saml2idp",
+    "name": "pdmfc/laravel-saml2idp-php-8-support",
     "description": "Make your Laravel application an Identification Provider using SAML 2.0.",
-    "keywords": ["laravel", "saml", "saml 2.0", "auth", "acl", "sso", "idp"],
+    "keywords": [
+        "laravel",
+        "saml",
+        "saml 2.0",
+        "auth",
+        "acl",
+        "sso",
+        "idp"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3 | ^8.0 | ^8.1",
